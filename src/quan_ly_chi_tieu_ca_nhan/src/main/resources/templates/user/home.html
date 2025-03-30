@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Welcome to Expense Manager</h2>
+    
+    <p th:if="${#authentication.principal != null}">
+        Hello, <span th:text="${#authentication.principal.username}">User</span>!
+    </p>
+    
+    <p th:if="${#authentication.principal == null}">
+        Please log in.
+    </p>
+
+    <div class="mt-4">
+        <a href="#" th:href="@{/login}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+</body>
+</html>
