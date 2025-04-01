@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Expenses</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/4 h-screen bg-blue-400 text-black p-8 shadow-md">
+        <h2 class="text-2xl font-bold mb-6">Menu</h2>
+        <ul>
+            <li class="mb-4"><a href="#" th:href="@{/expense}" class="hover:bg-white p-4 rounded transition block">Quản lý Chi tiêu</a></li>
+            <li class="mb-4"><a href="#" th:href="@{/income}" class="hover:bg-white p-4 rounded transition block">Quản lý Thu nhập</a></li>
+            <li class="mb-4"><a href="#" th:href="@{/categories}" class="hover:bg-white p-4 rounded transition block">Danh mục</a></li>
+            <li class="mb-4"><a href="#" th:href="@{/login}" class="hover:bg-red-600 p-4 rounded transition block">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-5">
+        <h2 class="text-2xl font-bold mb-4">Quản lý Chi tiêu</h2>
+
+        <!-- Thêm Chi tiêu -->
+        <h3 class="text-xl font-bold mb-2">Thêm Chi tiêu</h3>
+        <form action="#" th:action="@{/expenses/add}" method="post" class="mb-4">
+            <input type="text" name="description" placeholder="Mô tả" required class="border p-2 w-full mb-2" />
+            <input type="number" name="amount" placeholder="Số tiền" required class="border p-2 w-full mb-2" />
+            <button type="submit" class="bg-green-500 text-white p-2 rounded">Thêm</button>
+        </form>
+
+        <!-- Sửa Chi tiêu -->
+        <h3 class="text-xl font-bold mb-2">Sửa Chi tiêu</h3>
+        <form action="#" th:action="@{/expenses/update}" method="post" class="mb-4">
+            <input type="hidden" name="id" th:value="${expense.id}" />
+            <input type="text" name="description" placeholder="Mô tả" required class="border p-2 w-full mb-2" th:value="${expense.description}" />
+            <input type="number" name="amount" placeholder="Số tiền" required class="border p-2 w-full mb-2" th:value="${expense.amount}" />
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded">Cập nhật</button>
+        </form>
+
+        <!-- Xóa Chi tiêu -->
+        <h3 class="text-xl font-bold mb-2">Xóa Chi tiêu</h3>
+        <form action="#" th:action="@{/expenses/delete}" method="post" class="mb-4">
+            <input type="number" name="id" placeholder="ID Chi tiêu" required class="border p-2 w-full mb-2" />
+            <button type="submit" class="bg-red-500 text-white p-2 rounded">Xóa</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

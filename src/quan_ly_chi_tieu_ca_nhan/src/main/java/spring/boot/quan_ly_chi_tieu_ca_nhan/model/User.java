@@ -1,5 +1,7 @@
 package spring.boot.quan_ly_chi_tieu_ca_nhan.model;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,6 +47,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
 }

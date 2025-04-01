@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Chi Tiêu</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/4 h-screen bg-blue-400 text-black p-8 shadow-md">
+        <h2 class="text-2xl font-bold mb-6">Menu</h2>
+        <ul>
+            <li class="mb-4"><a href="#" th:href="@{/expenses}" class="hover:bg-white p-4 rounded transition block">Quản lý Chi tiêu</a></li>
+            <li class="mb-4"><a href="#" th:href="@{/income}" class="hover:bg-white p-4 rounded transition block">Quản lý Thu nhập</a></li>
+            <li class="mb-4"><a href="#" th:href="@{/categories}" class="hover:bg-white p-4 rounded transition block">Danh mục</a></li>
+            <li class="mb-4"><a href="#" th:href="@{/logout}" class="hover:bg-red-600 p-4 rounded transition block">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-5">
+        <h2 class="text-2xl font-bold mb-4">Danh Sách Chi Tiêu</h2>
+        
+        <!-- Nút Thêm Chi Tiêu -->
+        <a href="#" th:href="@{/expenses/add}" class="bg-green-500 text-white p-2 rounded mb-4 inline-block">Thêm Chi Tiêu</a>
+
+        <!-- Bảng Danh Sách Chi Tiêu -->
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="py-2 px-4 border">ID</th>
+                    <th class="py-2 px-4 border">Mô Tả</th>
+                    <th class="py-2 px-4 border">Số Tiền</th>
+                    <th class="py-2 px-4 border">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="expense : ${expenses}">
+                    <td class="py-2 px-4 border" th:text="${expense.id}"></td>
+                    <td class="py-2 px-4 border" th:text="${expense.description}"></td>
+                    <td class="py-2 px-4 border" th:text="${expense.amount}"></td>
+                    <td class="py-2 px-4 border flex space-x-2">
+                        <a href="#" th:href="@{/expenses/edit(id=${expense.id})}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Sửa</a>
+                        <form action="#" th:action="@{/expenses/delete}" method="post" class="inline">
+                            <input type="hidden" name="id" th:value="${expense.id}" />
+                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
