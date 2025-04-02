@@ -16,7 +16,7 @@ public class ExpenseService {
         return expenseRepository.findAll();
     }
 
-    public Expense save(Expense expense) {
+    public Expense add(Expense expense) {
         return expenseRepository.save(expense);
     }
 

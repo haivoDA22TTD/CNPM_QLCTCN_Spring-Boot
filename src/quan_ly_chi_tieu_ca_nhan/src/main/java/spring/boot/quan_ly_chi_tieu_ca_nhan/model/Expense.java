@@ -1,31 +1,25 @@
 package spring.boot.quan_ly_chi_tieu_ca_nhan.model;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "expenses")
 public class Expense {
     @Id
-    @GeneratedValue (strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private String category;
-    private String note;
+
+    private String name;
     private double amount;
-   
+    private String date;
 
-    public Expense() {
-    }
-
-    public Expense(Long id, String category, String note, double amount) {
-        this.id = id;
-        this.category = category;
-        this.note = note;
-        this.amount = amount;
-    }
-
+    // Getters và Setters
     public Long getId() {
         return id;
     }
@@ -34,20 +28,12 @@ public class Expense {
         this.id = id;
     }
 
-    public String getCategory() {
-        return category;
+    public String getName() {
+        return name;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getAmount() {
@@ -56,5 +42,13 @@ public class Expense {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

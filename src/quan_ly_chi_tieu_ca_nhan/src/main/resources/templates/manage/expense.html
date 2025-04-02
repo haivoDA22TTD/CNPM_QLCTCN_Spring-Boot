@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Chi Tiêu</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="flex">
+    <div class="w-1/4 h-screen bg-blue-400 text-black p-8 shadow-md">
+        <h2 class="text-2xl font-bold mb-6">Menu</h2>
+        <ul>
+            <li class="mb-4">
+                <a href="#" th:href="@{/expense}" class="hover:bg-white p-4 rounded transition block">Quản lý Chi tiêu</a>
+                <a href="#" th:href="@{/income}" class="hover:bg-white p-4 rounded transition block">Danh Mục</a>
+                <a href="#" th:href="@{/login}" class="hover:bg-white p-4 rounded transition block">Đăng Xuất</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="flex-1 p-8">
+        <h1 class="text-3xl font-bold text-center mb-6">Quản Lý Chi Tiêu</h1>
+        <form action="#" th:action="@{/expense}" method="post" class="mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input type="text" name="name" placeholder="Tên Chi Tiêu" class="p-2 border rounded" required>
+                <input type="number" name="amount" placeholder="Số Tiền" class="p-2 border rounded" required>
+                <input type="date" name="date" class="p-2 border rounded" required>
+                <button type="submit" class="col-span-1 md:col-span-1 bg-blue-500 text-white p-2 rounded">Thêm Chi Tiêu</button>
+            </div>
+        </form>
+
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="border px-4 py-2">Tên Chi Tiêu</th>
+                    <th class="border px-4 py-2">Số Tiền</th>
+                    <th class="border px-4 py-2">Ngày</th>
+                    <th class="border px-4 py-2">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="expense : ${expenses}">
+                    <td class="border px-4 py-2" th:text="${expense.name}"></td>
+                    <td class="border px-4 py-2" th:text="${expense.amount}"></td>
+                    <td class="border px-4 py-2" th:text="${expense.date}"></td>
+                    <td class="border px-4 py-2">
+                        <form action="#" th:action="@{/expense/{id}/remove(id=${expense.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="text-red-500">Xóa</button>
+                        </form>
+                        <button class="text-yellow-500" onclick="editExpense(${expense.id}, '${expense.name}', ${expense.amount}, '${expense.date}')">Sửa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function editExpense(id, name, amount, date) {
+            document.querySelector('input[name="name"]').value = name;
+            document.querySelector('input[name="amount"]').value = amount;
+            document.querySelector('input[name="date"]').value = date;
+
+            // Thay đổi action của form để sửa
+            document.querySelector('form').setAttribute('th:action', `@{/expense/${id}}`);
+        }
+    </script>
+</body>
+</html>
