@@ -27,4 +27,11 @@ public class ExpenseService {
     public Expense findById(Long id) {
         return expenseRepository.findById(id).orElse(null);
     }
+    public Expense update(Long id, Expense expense) {
+        if (expenseRepository.existsById(id)) {
+            expense.setId(id);
+            return expenseRepository.save(expense);
+        }
+        return null; // Hoặc ném ngoại lệ
+}
 }

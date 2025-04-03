@@ -29,7 +29,7 @@
             </div>
         </form>
 
-        <table class="min-w-full bg-white border border-gray-300">
+        <table border="1" class="min-w-full bg-white border border-gray-300">
             <thead>
                 <tr>
                     <th class="border px-4 py-2">Tên Chi Tiêu</th>
@@ -44,10 +44,10 @@
                     <td class="border px-4 py-2" th:text="${expense.amount}"></td>
                     <td class="border px-4 py-2" th:text="${expense.date}"></td>
                     <td class="border px-4 py-2">
-                        <form action="#" th:action="@{/expense/{id}/remove(id=${expense.id})}" method="post" style="display:inline;">
-                            <button type="submit" class="text-red-500">Xóa</button>
+                        <form action="#" th:action="@{/expense/{id}(id=${expense.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="text-white bg-red-500 p-2 rounded">Xóa</button>
                         </form>
-                        <button class="text-yellow-500" onclick="editExpense(${expense.id}, '${expense.name}', ${expense.amount}, '${expense.date}')">Sửa</button>
+                        <button class="text-white bg-yellow-400 p-2 rounded" onclick="editExpense(${expense.id}, '${expense.name}', ${expense.amount}, '${expense.date}')">Sửa</button>
                     </td>
                 </tr>
             </tbody>
@@ -56,12 +56,12 @@
 
     <script>
         function editExpense(id, name, amount, date) {
+            console.log("Editing expense:", id, name, amount, date); 
             document.querySelector('input[name="name"]').value = name;
             document.querySelector('input[name="amount"]').value = amount;
             document.querySelector('input[name="date"]').value = date;
-
-            // Thay đổi action của form để sửa
-            document.querySelector('form').setAttribute('th:action', `@{/expense/${id}}`);
+        
+            document.querySelector('form').setAttribute('action', `/expense/${id}`);
         }
     </script>
 </body>

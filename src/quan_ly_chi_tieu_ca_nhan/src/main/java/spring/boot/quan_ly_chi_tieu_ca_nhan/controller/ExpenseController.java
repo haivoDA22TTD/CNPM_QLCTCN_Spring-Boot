@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +20,7 @@ public class ExpenseController {
     private ExpenseRepository expenseRepository;
 
     @GetMapping("/expense")
+
     public String showManageExpensePage(Model model) {
         List<Expense> expenses = expenseRepository.findAll(); // Lấy tất cả chi tiêu
         model.addAttribute("expenses", expenses); // Thêm vào model
@@ -32,10 +32,10 @@ public class ExpenseController {
         return "redirect:/expense";
     }
 
-    @DeleteMapping("/expense/{id}/remove")
+   @PostMapping("/expense/{id}")
     public String deleteExpense(@PathVariable Long id) {
         expenseRepository.deleteById(id);
-        return "redirect:/expense";
+        return "redirect:/expense"; // Chuyển hướng về trang quản lý chi tiêu
     }
 
     @PutMapping("/expense/{id}")
