@@ -13,7 +13,9 @@
             <li class="mb-4">
                 <a href="#" th:href="@{/expense}" class="hover:bg-white p-4 rounded transition block">Quản lý Chi tiêu</a>
                 <a href="#" th:href="@{/income}" class="hover:bg-white p-4 rounded transition block">Danh Mục</a>
-                <a href="#" th:href="@{/login}" class="hover:bg-white p-4 rounded transition block">Đăng Xuất</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="hover:bg-red-600 p-4 rounded transition block">Đăng Xuất</button>
+                </form>
             </li>
         </ul>
     </div>

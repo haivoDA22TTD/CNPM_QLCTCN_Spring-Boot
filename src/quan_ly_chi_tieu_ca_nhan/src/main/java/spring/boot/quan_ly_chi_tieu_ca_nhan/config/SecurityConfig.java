@@ -20,15 +20,21 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .requestMatchers("/", "register", "/login").permitAll() // Cho phép truy cập vào trang đăng ký và đăng nhập
+            .requestMatchers("/", "/register", "/login").permitAll() // Cho phép truy cập vào trang đăng ký và đăng nhập
             .anyRequest().authenticated() // Bảo vệ tất cả các yêu cầu khác
             .and()
             .formLogin()
                 .loginPage("/login") // Đường dẫn trang đăng nhập
                 .permitAll()
                 .defaultSuccessUrl("/home", true)
+                .failureUrl("/login?error=true") // Đường dẫn nếu đăng nhập thất bại
                 .and()
             .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login?logout")  // URL chuyển hướng khi đăng xuất thành công
+            .invalidateHttpSession(true)  // Hủy session
+                .deleteCookies("JSESSIONID")  // Xóa cookie JSESSIONID
+                .clearAuthentication(true)  // Xóa thông tin xác thực
                 .permitAll(); // Cho phép tất cả người dùng thực hiện thoát
 
         return http.build();

@@ -51,10 +51,12 @@ public String handleError(Exception e, Model model) {
     model.addAttribute("errorMessage", e.getMessage());
     return "error"; // Trả về trang lỗi
 }
+
 @GetMapping("/api/users") // Đường dẫn API
+
 @ResponseBody // Đảm bảo trả về JSON
-public List<User> getAllUsers() {
-    return userService.getAllUsers(); 
+    public List<User> getAllUsers() {
+        return userService.getAllUsers(); 
 }
 
 }

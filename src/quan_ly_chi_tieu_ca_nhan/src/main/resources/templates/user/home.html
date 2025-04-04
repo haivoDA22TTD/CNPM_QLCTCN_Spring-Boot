@@ -22,7 +22,9 @@
                 <a href="#" th:href="@{categories/manage_categories}" class="hover:bg-white p-4 rounded transition block">Danh mục</a>
             </li>
             <li class="mb-4">
-                <a href="#" th:href="@{/login}" class="hover:bg-red-600 p-4 rounded transition block">Đăng Xuất</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="hover:bg-red-600 p-4 rounded transition block">Đăng Xuất</button>
+                </form>
             </li>
         </ul>
     </div>
