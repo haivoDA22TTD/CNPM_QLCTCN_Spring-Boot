@@ -8,8 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name = "expenses")
+
 public class Expense {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,36 +21,61 @@ public class Expense {
     private double amount;
     private String date;
 
-    // Getters và Setters
+    
+    
+    public Expense() {
+    }
+    
+
+
+    public Expense(Long id, String name, double amount, String date) {
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
+        this.date = date;
+    }
+
+
+
+    public void setId(Long id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
+
 
     public double getAmount() {
         return amount;
     }
 
+
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
 
     public String getDate() {
         return date;
     }
 
+
     public void setDate(String date) {
         this.date = date;
     }
+
+
+    
 }

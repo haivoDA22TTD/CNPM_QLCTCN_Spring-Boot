@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biểu đồ Chi tiêu</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 py-10">
+
+  <div class="container mx-auto px-4">
+    <h1 class="text-3xl font-semibold text-center mb-6">Biểu đồ Chi tiêu</h1>
+    
+    <!-- Biểu đồ cột -->
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Lấy dữ liệu từ API
+    fetch('http://localhost:8082/api/expenses')  // Đảm bảo API của bạn hoạt động trên URL này
+      .then(response => response.json())  // Chuyển dữ liệu thành JSON
+      .then(data => {
+        // Chuyển dữ liệu thành định dạng phù hợp cho biểu đồ
+        const expenseData = {
+          labels: data.map(item => item.name), // Sử dụng tên chi tiêu cho trục X
+          datasets: [{
+            label: 'Chi tiêu (VNĐ)',
+            data: data.map(item => item.amount), // Dữ liệu là số tiền chi tiêu
+            backgroundColor: '#4CAF50',  // Màu của các cột
+            borderColor: '#388E3C',  // Màu viền của các cột
+            borderWidth: 1
+          }]
+        };
+
+        // Cấu hình biểu đồ
+        const config = {
+          type: 'bar',  // Loại biểu đồ là cột
+          data: expenseData,
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Tên chi tiêu'
+                }
+              },
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Số tiền (VNĐ)'
+                }
+              }
+            }
+          }
+        };
+
+        // Vẽ biểu đồ
+        const ctx = document.getElementById('barChart').getContext('2d');
+        new Chart(ctx, config);
+      })
+      .catch(error => {
+        console.error('Lỗi khi lấy dữ liệu:', error);
+      });
+  </script>
+
+</body>
+</html>
