@@ -15,13 +15,13 @@ public class Income {
       private Long id;
 
     private String source;   // Nguồn thu nhập
-    private Double amount;   // Số tiền
+    private Integer amount;   // Số tiền
     private LocalDate date;  // Ngày thu nhập
 
     public Income() {
     }
 
-    public Income(Long id, String source, Double amount, LocalDate date) {
+    public Income(Long id, String source, Integer amount, LocalDate date) {
         this.id = id;
         this.source = source;
         this.amount = amount;
@@ -44,11 +44,11 @@ public class Income {
         this.source = source;
     }
 
-    public Double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

@@ -18,7 +18,7 @@ public class Expense {
     private Long id;
 
     private String name;
-    private double amount;
+    private Integer amount;
     private String date;
 
     
@@ -28,7 +28,7 @@ public class Expense {
     
 
 
-    public Expense(Long id, String name, double amount, String date) {
+    public Expense(Long id, String name, Integer amount, String date) {
         this.id = id;
         this.name = name;
         this.amount = amount;
@@ -57,12 +57,12 @@ public class Expense {
     }
 
 
-    public double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
 
-    public void setAmount(double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

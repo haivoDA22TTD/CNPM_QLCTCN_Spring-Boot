@@ -30,7 +30,11 @@
    
     <div id="logout-message" th:if="${param.logout}" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg text-center z-50">
         <p>Bạn đã đăng xuất thành công!</p>
-    </div>   
+    </div>  
+    <div id="register-message" th:if="${param.registered}" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg text-center z-50">
+        <p>Bạn đã đăng ký tài khoản thành công!</p>
+    </div>
+     
       <!-- Nút chuyển đổi chế độ, đặt ở góc trên bên phải -->
     <button id="theme-toggle" class="absolute top-4 right-4 p-2 bg-blue-500 text-white rounded z-50">
         Chuyển sang chế độ tối
