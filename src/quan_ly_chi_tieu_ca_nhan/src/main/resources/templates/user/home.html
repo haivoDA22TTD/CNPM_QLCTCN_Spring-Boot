@@ -30,6 +30,12 @@
     </div>
 
     <!-- Main Content -->
+   <!-- Thông báo đăng nhập thành công -->
+<div id="login-success-message"
+     th:if="${loginSuccess}" 
+     class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg text-center z-50">
+    <p>Đăng nhập thành công!</p>
+</div>
     <div class="flex-1 p-5">
         <h2 class="text-2xl font-bold">Chào mừng đến với trang chủ</h2>
         

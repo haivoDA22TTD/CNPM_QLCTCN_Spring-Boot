@@ -2,11 +2,15 @@ package spring.boot.quan_ly_chi_tieu_ca_nhan.model;
 
 
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -17,7 +21,14 @@ public class User {
     private Long id;
     private String username;
     private String password;
+
+    @OneToMany(mappedBy= "user", cascade= CascadeType.ALL)
+    @SuppressWarnings("unused")
+    private List<Income> incomes;
     
+    @OneToMany(mappedBy="user", cascade= CascadeType.ALL)
+    @SuppressWarnings("unused")
+    private List<Expense> expenses;
     public User() {
     }
 

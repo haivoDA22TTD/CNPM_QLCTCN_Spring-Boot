@@ -42,14 +42,22 @@ public String registerUser(@RequestParam String username, @RequestParam String p
         return "user/login"; // Trả về trang đăng nhập
     }
 
-    @GetMapping("/home")
-    public String home(Model model) {
-        // Lấy tên người dùng từ SecurityContextHolder
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        
-        model.addAttribute("username", username);
-        return "user/home"; 
+   @GetMapping("/home")
+public String home(@RequestParam(value = "loginSuccess", required = false) String loginSuccess,
+                   Model model) {
+    // Lấy tên người dùng từ SecurityContextHolder
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    
+    model.addAttribute("username", username);
+
+    // Nếu có tham số loginSuccess, truyền thông báo sang view
+    if (loginSuccess != null) {
+        model.addAttribute("loginSuccess", true);
     }
+
+    return "user/home";
+}
+
     
     @ExceptionHandler(Exception.class)
 public String handleError(Exception e, Model model) {

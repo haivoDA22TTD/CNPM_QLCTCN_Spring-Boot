@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table(name="incomes")
@@ -17,6 +19,11 @@ public class Income {
     private String source;   // Nguồn thu nhập
     private Integer amount;   // Số tiền
     private LocalDate date;  // Ngày thu nhập
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    @SuppressWarnings("unused")
+    private User user;
 
     public Income() {
     }
