@@ -6,65 +6,52 @@
     <title>Đăng Nhập</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 <body class="bg-blue-300 flex items-center justify-center min-h-screen">
-<div class="bg-white shadow-lg rounded-lg p-8 w-96">
+<div class="bg-white shadow-lg rounded-lg p-8 w-96 relative">
     <h2 class="text-2xl font-bold mb-6 text-center">Đăng Nhập</h2>
     <form action="#" th:action="@{/login}" method="post">
         <div class="mb-4">
             <label for="username" class="block text-sm font-medium text-gray-700">Tài Khoản:</label>
-            <input type="text" id="username" name="username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required/>
+            <div class="flex items-center border border-gray-300 rounded-md shadow-sm p-2 mt-1">
+                <ion-icon name="person-outline" class="text-gray-500 mr-2"></ion-icon>
+                <input type="text" id="username" name="username" class="flex-1 outline-none" required/>
+            </div>
         </div>
         <div class="mb-4">
             <label for="password" class="block text-sm font-medium text-gray-700">Mật Khẩu:</label>
-            <input type="password" id="password" name="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required/>
+            <div class="flex items-center border border-gray-300 rounded-md shadow-sm p-2 mt-1">
+                <ion-icon name="lock-closed-outline" class="text-gray-500 mr-2"></ion-icon>
+                <input type="password" id="password" name="password" class="flex-1 outline-none" required/>
+            </div>
         </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600">Đăng Nhập</button>
+        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 flex items-center justify-center gap-2">
+            <ion-icon name="log-in-outline"></ion-icon> Đăng Nhập
+        </button>
     </form>
-    <p class="mt-4 text-red-500 text-center" th:text="${param.error}"></p> <!-- Hiển thị thông báo lỗi nếu có -->
-    
+
+    <!-- Thông báo lỗi -->
+    <p class="mt-4 text-red-500 text-center" th:text="${param.error}"></p>
+
+    <!-- Liên kết đăng ký -->
     <div class="mt-6 text-center">
         <a th:href="@{/register}" class="text-blue-500 hover:underline">Đăng ký</a>
     </div>
-    <!-- login.html -->
-   
+
+    <!-- Thông báo đăng xuất -->
     <div id="logout-message" th:if="${param.logout}" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg text-center z-50">
         <p>Bạn đã đăng xuất thành công!</p>
-    </div>  
+    </div>
+
+    <!-- Thông báo đăng ký thành công -->
     <div id="register-message" th:if="${param.registered}" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg text-center z-50">
         <p>Bạn đã đăng ký tài khoản thành công!</p>
     </div>
-     
-      <!-- Nút chuyển đổi chế độ, đặt ở góc trên bên phải -->
-    <button id="theme-toggle" class="absolute top-4 right-4 p-2 bg-blue-500 text-white rounded z-50">
-        Chuyển sang chế độ tối
-    </button>
-</div>
 
-<script>
-    // Lấy nút chuyển đổi và thẻ body
-    const themeToggleButton = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    // Kiểm tra nếu chế độ tối đã được bật từ trước
-    if (localStorage.getItem('dark-mode') === 'enabled') {
-        body.classList.add('dark');
-        themeToggleButton.textContent = 'Chuyển sang chế độ sáng';
-    }
-
-    // Lắng nghe sự kiện click vào nút để chuyển đổi chế độ
-    themeToggleButton.addEventListener('click', () => {
-        body.classList.toggle('dark');
-        
-        // Lưu trạng thái chế độ vào localStorage
-        if (body.classList.contains('dark')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            themeToggleButton.textContent = 'Chuyển sang chế độ sáng';
-        } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            themeToggleButton.textContent = 'Chuyển sang chế độ tối';
-        }
-    });
+   
 </script>
 <script src="/js/index.js" defer></script>
 

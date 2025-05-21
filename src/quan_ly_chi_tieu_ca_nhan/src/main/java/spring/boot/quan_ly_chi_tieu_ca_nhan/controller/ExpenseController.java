@@ -24,25 +24,36 @@ public class ExpenseController {
     @Autowired
         private ExpenseService expenseService;
     @GetMapping("/expense")
+public String showManageExpensePage(Model model) {
+    List<Expense> expenses = expenseRepository.findAll();
+    model.addAttribute("expenses", expenses);
 
-    public String showManageExpensePage(Model model) {
-        List<Expense> expenses = expenseRepository.findAll(); // Lấy tất cả chi tiêu
-        model.addAttribute("expenses", expenses); // Thêm vào model
-        return "manage/expense"; // Trả về view
-    }
+    // Tổng chi tiêu (int)
+    int totalExpense = expenseService.getTotalExpense();
+    model.addAttribute("totalExpense", totalExpense);
+
+    return "manage/expense";
+}
+
     @Operation(summary="Thêm chi tiêu")
     @PostMapping("/expense")
-    public String addExpense(@ModelAttribute Expense expense, Model model) {
-        String message = expenseService.addExpense(expense); // Kiểm tra chi tiêu với thu nhập
+    @SuppressWarnings("CallToPrintStackTrace")
+public String addExpense(@ModelAttribute Expense expense, Model model) {
+    try {
+        String message = expenseService.addExpense(expense);
 
         if (message.startsWith("Cảnh báo")) {
-            // Nếu có cảnh báo, thêm thông báo vào model
             model.addAttribute("message", message);
-            return "manage/expense"; // Trả về lại trang quản lý chi tiêu với cảnh báo
+            return "manage/expense";
         }
 
-        return "redirect:/expense"; // Nếu chi tiêu hợp lệ, chuyển hướng về trang danh sách
+        return "redirect:/expense";
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi hệ thống: " + e.getMessage());
+        e.printStackTrace(); // Xem chi tiết lỗi trong console
+        return "manage/expense";
     }
+}
 
    @PostMapping("/expense/{id}")
         public String deleteExpense(@PathVariable Long id) {

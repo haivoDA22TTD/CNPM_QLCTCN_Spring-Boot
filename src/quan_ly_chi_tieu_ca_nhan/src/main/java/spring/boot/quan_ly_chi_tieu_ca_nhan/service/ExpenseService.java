@@ -34,19 +34,22 @@ public class ExpenseService {
     return expenseRepository.findAll();
    }
    public String addExpense(Expense expense) {
-    // Lấy mức thu nhập hiện tại
-    Double currentIncome = incomeRepository.findCurrentIncome(); // Giả sử bạn có phương thức này trong IncomeRepository
-    
-    // Lấy tổng chi tiêu hiện tại
-    Double totalExpenses = expenseRepository.calculateTotalExpenses(); // Giả sử bạn có phương thức này trong ExpenseRepository
+    Double totalIncome = incomeRepository.getTotalIncome();
+    if (totalIncome == null) totalIncome = 0.0;
 
-    // Kiểm tra nếu chi tiêu vượt quá thu nhập
-    if (totalExpenses + expense.getAmount() > currentIncome) {
+    if (expense.getAmount() != null && expense.getAmount() > totalIncome) {
         return "Cảnh báo: Chi tiêu vượt quá thu nhập!";
     }
 
-    // Lưu chi tiêu vào cơ sở dữ liệu nếu hợp lệ
     expenseRepository.save(expense);
-    return "Chi tiêu đã được thêm thành công.";
+    return "Chi tiêu đã được lưu.";
 }
+
+public int getTotalExpense() {
+    return expenseRepository.findAll()
+            .stream()
+            .mapToInt(Expense::getAmount)
+            .sum();
+}
+
 }

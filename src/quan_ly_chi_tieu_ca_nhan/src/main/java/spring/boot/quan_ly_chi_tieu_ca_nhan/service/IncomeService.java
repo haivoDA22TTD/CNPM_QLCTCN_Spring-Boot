@@ -45,4 +45,11 @@ public class IncomeService {
     public void deleteIncome(Long id) {
         incomeRepository.deleteById(id);
     }
+    public int getTotalIncome() {
+    return incomeRepository.findAll()
+            .stream()
+            .mapToInt(Income::getAmount)
+            .sum();
+}
+
 }

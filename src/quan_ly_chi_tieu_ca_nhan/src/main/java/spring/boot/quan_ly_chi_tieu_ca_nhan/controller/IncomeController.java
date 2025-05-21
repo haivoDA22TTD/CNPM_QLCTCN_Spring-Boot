@@ -25,11 +25,15 @@ public class IncomeController {
     private IncomeService incomeService; // Sử dụng IncomeService
 
     // Hiển thị trang quản lý thu nhập
-    @GetMapping("/income")
+     @GetMapping("/income")
     public String showIncomePage(Model model) {
-        List<Income> incomes = incomeRepository.findAll(); // Lấy danh sách thu nhập từ DB
-        model.addAttribute("incomes", incomes); // Thêm vào model
-        return "manage/income"; // Trả về view manage/income
+        List<Income> incomes = incomeRepository.findAll();
+        model.addAttribute("incomes", incomes);
+
+        int totalIncome = incomeService.getTotalIncome();
+        model.addAttribute("totalIncome", totalIncome);
+
+        return "manage/income"; // Tên file HTML giao diện (income.html)
     }
     // Thêm mới thu nhập (POST)
     @PostMapping("/income")
