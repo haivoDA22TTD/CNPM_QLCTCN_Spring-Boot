@@ -1,6 +1,7 @@
 package spring.boot.quan_ly_chi_tieu_ca_nhan.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,4 +76,15 @@ public String addExpense(@ModelAttribute Expense expense, Model model) {
         public List<Expense> getAllExpenses(){
             return expenseService.getAllExpenses();
         }
+
+    @GetMapping("/api/expenses/monthly")
+    @ResponseBody
+        public Map<String, Integer> getMonthlyExpenses() {
+    return expenseService.getMonthlyExpenses();
+}
+    @GetMapping("/show")
+public String showStatisticsPage(Model model) {
+    // hiển thị trang thống kê chi tiêu
+    return "manage/show"; 
+}
 }

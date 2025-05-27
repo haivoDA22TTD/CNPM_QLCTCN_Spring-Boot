@@ -1,6 +1,8 @@
 package spring.boot.quan_ly_chi_tieu_ca_nhan.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +53,15 @@ public int getTotalExpense() {
             .mapToInt(Expense::getAmount)
             .sum();
 }
+      // Phương thức để lấy chi tiêu hàng tháng
+    public Map<String, Integer> getMonthlyExpenses() {
+        List<Expense> expenses = expenseRepository.findAll();
 
+        // Nhóm chi tiêu theo tháng và tính tổng
+        return expenses.stream()
+            .collect(Collectors.groupingBy(
+                expense -> expense.getDate().substring(0, 7), // Giả định date là dạng YYYY-MM-DD
+                Collectors.summingInt(Expense::getAmount)
+            ));
+    }
 }
