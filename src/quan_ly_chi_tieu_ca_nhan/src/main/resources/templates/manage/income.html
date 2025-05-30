@@ -30,6 +30,11 @@
                     <ion-icon name="trending-up-outline"></ion-icon> Quản lý Thu nhập
                 </a>
             </li>
+              <li class="mb-4">
+        <a th:href="@{/show}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+            <ion-icon name="pie-chart-outline"></ion-icon> Thống kê mức chi tiêu
+        </a>
+    </li>
             <li class="mb-4">
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="hover:bg-red-600 p-4 rounded transition block flex items-center gap-2 text-white">
