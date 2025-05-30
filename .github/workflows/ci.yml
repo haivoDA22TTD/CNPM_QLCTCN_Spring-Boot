@@ -23,5 +23,5 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
 
-      - name: Build with Maven (run tests)
-        run: mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml clean install
+      - name: Build and run tests with Maven and 'test' profile
+        run: mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml clean install -Dspring.profiles.active=test
