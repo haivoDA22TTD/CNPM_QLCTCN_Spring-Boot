@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
+@SpringBootTest(classes = QuanLyChiTieuCaNhanApplication.class)
 @ActiveProfiles("test")
 class QuanLyChiTieuCaNhanApplicationTests {
 
@@ -12,3 +12,4 @@ class QuanLyChiTieuCaNhanApplicationTests {
     void contextLoads() {
     }
 }
+
