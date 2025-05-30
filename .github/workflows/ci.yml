@@ -23,7 +23,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml clean install
 
       - name: Run tests
-        run: mvn test
+        run: mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml test
