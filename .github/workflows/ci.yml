@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - CI/CD
   pull_request:
     branches:
       - main
@@ -22,8 +23,5 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
 
-      - name: Build with Maven
+      - name: Build with Maven (run tests)
         run: mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml clean install
-
-      - name: Run tests
-        run: mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml test
