@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - CI/CD
-      -deploy-Docker
+      - deploy-Docker
   pull_request:
     branches:
       - main
