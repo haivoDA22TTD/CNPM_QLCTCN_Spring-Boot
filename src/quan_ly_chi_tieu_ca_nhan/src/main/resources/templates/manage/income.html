@@ -79,6 +79,7 @@
                     <td class="border px-4 py-2" th:text="${income.date}"></td>
                     <td class="border px-4 py-2 flex gap-2">
                         <form th:action="@{/income/{id}(id=${income.id})}" method="post" style="display:inline;">
+                            <input type="hidden" name="_method" value="delete">
                             <button type="submit" class="text-white bg-red-500 p-2 rounded flex items-center gap-1">
                                 <ion-icon name="trash-outline"></ion-icon> Xóa
                             </button>

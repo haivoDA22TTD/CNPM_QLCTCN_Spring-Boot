@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import io.swagger.v3.oas.annotations.Operation;
 import spring.boot.quan_ly_chi_tieu_ca_nhan.model.User;
 import spring.boot.quan_ly_chi_tieu_ca_nhan.service.UserService;
 @Controller
@@ -64,7 +65,7 @@ public String handleError(Exception e, Model model) {
     model.addAttribute("errorMessage", e.getMessage());
     return "error"; // Trả về trang lỗi
 }
-
+@Operation(summary="Hiển thị API của user")
 @GetMapping("/api/users") // Đường dẫn API
 
 @ResponseBody // Đảm bảo trả về JSON

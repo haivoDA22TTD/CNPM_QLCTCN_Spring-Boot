@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,13 +56,13 @@ public String addExpense(@ModelAttribute Expense expense, Model model) {
         return "manage/expense";
     }
 }
-
-   @PostMapping("/expense/{id}")
+    @Operation(summary="Xóa khoản chi tiêu ")
+   @DeleteMapping("/expense/{id}")
         public String deleteExpense(@PathVariable Long id) {
         expenseRepository.deleteById(id);
         return "redirect:/expense"; // Chuyển hướng về trang quản lý chi tiêu
     }
-
+    @Operation(summary="Cập nhật khoản chi tiêu ")
     @PutMapping("/expense/{id}")
         public String editExpense(@PathVariable Long id, @ModelAttribute Expense expense) {
         expense.setId(id);
@@ -70,18 +71,19 @@ public String addExpense(@ModelAttribute Expense expense, Model model) {
     }
 
   
-    
+    @Operation(summary="Hiển thị tất cả các khoản chi tiêu")
     @GetMapping("/api/expenses") // Đường dẫn API
     @ResponseBody // Trả về file Json
         public List<Expense> getAllExpenses(){
             return expenseService.getAllExpenses();
         }
-
+    @Operation(summary="Hiển thị khoản chi tiêu của từng tháng")
     @GetMapping("/api/expenses/monthly")
     @ResponseBody
         public Map<String, Integer> getMonthlyExpenses() {
     return expenseService.getMonthlyExpenses();
 }
+    
     @GetMapping("/show")
 public String showStatisticsPage(Model model) {
     // hiển thị trang thống kê chi tiêu
