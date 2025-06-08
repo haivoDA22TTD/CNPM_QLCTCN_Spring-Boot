@@ -1,7 +1,5 @@
 package spring.boot.quan_ly_chi_tieu_ca_nhan.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,67 +8,73 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import io.swagger.v3.oas.annotations.Operation;
 import spring.boot.quan_ly_chi_tieu_ca_nhan.model.User;
 import spring.boot.quan_ly_chi_tieu_ca_nhan.service.UserService;
+
 @Controller
 public class UserController {
- @Autowired
+
+    @Autowired
     private UserService userService;
 
-        @GetMapping("/register")
+    // Hiển thị form đăng ký
+    @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
         return "user/register";
     }
 
-   @PostMapping("/register")
-public String registerUser(@RequestParam String username, @RequestParam String password, RedirectAttributes redirectAttributes) {
-    // Đăng ký người dùng
-    userService.registerUser(username, password);
-    
-    // Sau khi đăng ký thành công, chuyển hướng về trang đăng nhập và thêm tham số `registered=true`
-    redirectAttributes.addAttribute("registered", true);
-    return "redirect:/login";  // Chuyển hướng đến trang đăng nhập
-}
+    // Xử lý đăng ký user từ form
+    @PostMapping("/register")
+    public String registerUser(@RequestParam String username, @RequestParam String password, RedirectAttributes redirectAttributes) {
+        try {
+            userService.registerUser(username, password);
+            redirectAttributes.addAttribute("registered", true);
+            return "redirect:/login";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Tên người dùng đã tồn tại!");
+            return "redirect:/register";
+        }
+    }
 
-
+    // Hiển thị form đăng nhập
     @GetMapping("/login")
-    public String showLoginForm() {
-        return "user/login"; // Trả về trang đăng nhập
+    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
+                                 @RequestParam(value = "logout", required = false) String logout,
+                                 @RequestParam(value = "registered", required = false) String registered,
+                                 Model model) {
+
+        if (error != null) {
+            model.addAttribute("errorMessage", "Sai tên đăng nhập hoặc mật khẩu.");
+        }
+        if (logout != null) {
+            model.addAttribute("message", "Bạn đã đăng xuất thành công.");
+        }
+        if (registered != null) {
+            model.addAttribute("message", "Đăng ký thành công! Mời đăng nhập.");
+        }
+        return "user/login";
     }
 
-   @GetMapping("/home")
-public String home(@RequestParam(value = "loginSuccess", required = false) String loginSuccess,
-                   Model model) {
-    // Lấy tên người dùng từ SecurityContextHolder
-    String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    
-    model.addAttribute("username", username);
+    // Trang sau khi đăng nhập thành công
+    @GetMapping("/home")
+    public String home(@RequestParam(value = "loginSuccess", required = false) String loginSuccess, Model model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("username", username);
 
-    // Nếu có tham số loginSuccess, truyền thông báo sang view
-    if (loginSuccess != null) {
-        model.addAttribute("loginSuccess", true);
+        if (loginSuccess != null) {
+            model.addAttribute("loginSuccess", true);
+        }
+
+        return "user/home";
     }
 
-    return "user/home";
-}
-
-    
+    // Xử lý lỗi toàn cục 
     @ExceptionHandler(Exception.class)
-public String handleError(Exception e, Model model) {
-    model.addAttribute("errorMessage", e.getMessage());
-    return "error"; // Trả về trang lỗi
-}
-@Operation(summary="Hiển thị API của user")
-@GetMapping("/api/users") // Đường dẫn API
-
-@ResponseBody // Đảm bảo trả về JSON
-    public List<User> getAllUsers() {
-        return userService.getAllUsers(); 
-}
-
+    public String handleError(Exception e, Model model) {
+        model.addAttribute("errorMessage", e.getMessage());
+        return "error";
+    }
 }
