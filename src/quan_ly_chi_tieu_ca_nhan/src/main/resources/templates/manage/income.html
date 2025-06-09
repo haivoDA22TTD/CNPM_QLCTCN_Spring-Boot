@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Thu Nhập</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Ionicons CDN -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/4 h-screen bg-blue-400 text-black p-8 shadow-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Menu</h2>
+        <ul>
+            <li class="mb-4">
+                <a href="#" th:href="@{/home}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+                    <ion-icon name="home-outline"></ion-icon> Trang chủ
+                </a>
+            </li>
+            <li class="mb-4">
+                <a th:href="@{/expense}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+                    <ion-icon name="wallet-outline"></ion-icon> Quản lý Chi tiêu
+                </a>
+            </li>
+            <li class="mb-4">
+                <a th:href="@{/income}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+                    <ion-icon name="trending-up-outline"></ion-icon> Quản lý Thu nhập
+                </a>
+            </li>
+              <li class="mb-4">
+        <a th:href="@{/show}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+            <ion-icon name="pie-chart-outline"></ion-icon> Thống kê mức chi tiêu
+        </a>
+    </li>
+            <li class="mb-4">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="hover:bg-red-600 p-4 rounded transition block flex items-center gap-2 text-white">
+                        <ion-icon name="log-out-outline"></ion-icon> Đăng Xuất
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+        <h1 class="text-3xl font-bold text-center mb-6">Quản Lý Thu Nhập</h1>
+
+        <!-- Form Thêm/Sửa -->
+        <input type="hidden" name="id">
+        <form th:action="@{/income}" method="post" class="mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input type="text" name="source" placeholder="Nguồn Thu" class="p-2 border rounded" required>
+                <input type="number" name="amount" placeholder="Số Tiền" class="p-2 border rounded" required>
+                <input type="date" name="date" class="p-2 border rounded" required>
+                <button type="submit" class="col-span-1 md:col-span-1 bg-blue-500 text-white p-2 rounded flex items-center justify-center gap-2">
+                    <ion-icon name="add-circle-outline"></ion-icon> Thêm Thu Nhập
+                </button>
+            </div>
+        </form>
+
+        <!-- Bảng thu nhập -->
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="border px-4 py-2">Nguồn Thu</th>
+                    <th class="border px-4 py-2">Số Tiền</th>
+                    <th class="border px-4 py-2">Ngày</th>
+                    <th class="border px-4 py-2">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="income : ${incomes}">
+                    <td class="border px-4 py-2" th:text="${income.source}"></td>
+                    <td class="border px-4 py-2" th:text="${income.amount}"></td>
+                    <td class="border px-4 py-2" th:text="${income.date}"></td>
+                    <td class="border px-4 py-2 flex gap-2">
+                        <form th:action="@{/income/{id}(id=${income.id})}" method="post" style="display:inline;">
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit" class="text-white bg-red-500 p-2 rounded flex items-center gap-1">
+                                <ion-icon name="trash-outline"></ion-icon> Xóa
+                            </button>
+                        </form>
+                        <button class="text-white bg-yellow-400 p-2 rounded flex items-center gap-1"
+                                onclick="editIncome(${income.id}, '${income.source}', ${income.amount}, '${income.date}')">
+                            <ion-icon name="create-outline"></ion-icon> Sửa
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Tổng thu nhập -->
+    <div class="fixed bottom-4 right-4 bg-blue-300 text-black px-6 py-3 rounded shadow-lg text-lg font-semibold flex items-center gap-2">
+        <ion-icon name="cash-outline"></ion-icon> Tổng thu nhập: <span th:text="${totalIncome}">0</span> đ
+    </div>
+
+    <!-- Script sửa -->
+    <script>
+        function editIncome(id, source, amount, date) {
+            document.querySelector('input[name="source"]').value = source;
+            document.querySelector('input[name="amount"]').value = amount;
+            document.querySelector('input[name="date"]').value = date;
+            document.querySelector('form').setAttribute('action', `/income/${id}`);
+        }
+    </script>
+</body>
+</html>

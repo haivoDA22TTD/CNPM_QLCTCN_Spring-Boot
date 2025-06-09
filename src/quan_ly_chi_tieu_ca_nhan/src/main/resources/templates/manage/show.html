@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Ionicons CDN -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <title>Thống Kê Chi Tiêu</title>
+    <style>
+        body {
+            background-color: white; /* Đặt màu nền là màu trắng */
+        }
+        #chart {
+            max-width:600px; /* Đặt kích thước tối đa cho biểu đồ */
+            margin: 0 auto; /* Căn giữa biểu đồ */
+            background-color: transparent; /* Đặt màu nền của canvas là trong suốt */
+            border: none; /* Bỏ viền */
+        }
+    </style>
+</head>
+<body class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/4 h-screen bg-blue-400 text-black p-8 shadow-md"> <!-- Thanh menu bên trái -->
+        <h2 class="text-2xl font-bold mb-6 text-center">Menu</h2>
+        <ul>
+            <li class="mb-4">
+                <a href="#" th:href="@{/home}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+                    <ion-icon name="home-outline"></ion-icon> Trang chủ
+                </a>
+            </li>
+            <li class="mb-4">
+                <a href="#" th:href="@{/expense}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+                    <ion-icon name="wallet-outline"></ion-icon> Quản lý Chi tiêu
+                </a>
+            </li>
+            <li class="mb-4">
+                <a th:href="@{/income}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+                    <ion-icon name="trending-up-outline"></ion-icon> Quản lý Thu nhập
+                </a>
+            </li>
+            <li class="mb-4">
+                <a th:href="@{/show}" class="hover:bg-white p-4 rounded transition block flex items-center gap-2">
+                    <ion-icon name="analytics-outline"></ion-icon> Thống kê mức chi tiêu
+                </a>
+            </li>
+            <li class="mb-4">
+                <form th:action="@{/logout}" method="post" class="flex items-center gap-2">
+                    <ion-icon name="log-out-outline"></ion-icon>
+                    <button type="submit" class="hover:bg-red-600 p-4 rounded transition block">Đăng Xuất</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <div class="flex-grow p-5">
+        <h1 class="text-3xl font-bold mb-5 text-center text-black">Thống Kê Chi Tiêu</h1>
+        <canvas id="chart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('chart').getContext('2d');
+
+        fetch('/api/expenses/monthly')
+            .then(response => response.json())
+            .then(data => {
+                const labels = Object.keys(data);
+                const values = Object.values(data);
+
+                // Màu 
+                const colors = [
+                    'rgba(255, 99, 132, 0.6)', // Đỏ
+                    'rgba(54, 162, 235, 0.6)', // Xanh dương
+                    'rgba(255, 206, 86, 0.6)', // Vàng
+                    'rgba(75, 192, 192, 0.6)', // Xanh lam
+                    'rgba(153, 102, 255, 0.6)', // Tím
+                    'rgba(255, 159, 64, 0.6)'  // Cam
+                ];
+
+                const chart = new Chart(ctx, {
+                    type: 'pie', // Dạng biểu đồ hình tròn
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Chi tiêu',
+                            data: values,
+                            backgroundColor: colors.slice(0, values.length), // Lấy màu tương ứng với số lượng giá trị
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>

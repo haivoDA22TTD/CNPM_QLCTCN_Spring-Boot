@@ -14,12 +14,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
  @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found: " + username);
-        }
-        return new UserDetailsImpl(user);
-    }
+   @Override
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepository.findByUsername(username)
+        .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy user: " + username));
+    return new UserDetailsImpl(user);
+}
+
 }
