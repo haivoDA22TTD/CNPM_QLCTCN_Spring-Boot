@@ -1,7 +1,6 @@
 package spring.boot.quan_ly_chi_tieu_ca_nhan.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,13 +23,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll(); // Trả về danh sách người dùng
     }
 
-    public Optional<User> getUserByUsername(String username) {
-    return userRepository.findByUsername(username); //  trả về Optional
-}
-
-    
 }
