@@ -57,13 +57,14 @@ Bạn có thể truy cập giao diện Swagger để kiểm thử và xem chi ti
 ```bash
 git clone https://github.com/haivoDA22TTD/CNPM_QLCTCN_Spring-Boot
 cd CNPM_QLCTCN_Spring-Boot
+```
 ##  Cài Đặt Thư Viện Phụ Thuộc
 
 Chạy lệnh sau để cài đặt toàn bộ các thư viện cần thiết của dự án:
 
 ```bash
 mvn clean install
-
+```
 ## Khởi Động Ứng Dụng
 
 Sử dụng Maven để chạy ứng dụng Spring Boot:
@@ -72,7 +73,7 @@ Sử dụng Maven để chạy ứng dụng Spring Boot:
 mvn spring-boot:run
 ##  Ứng dụng sẽ chạy tại địa chỉ:
   http://localhost:8082
-
+```
 ##  Sử Dụng API
 
 Bạn có thể sử dụng **Swagger UI** để xem và kiểm thử các API trực tiếp trên trình duyệt.
@@ -98,6 +99,3 @@ Bạn có thể sử dụng **Swagger UI** để xem và kiểm thử các API t
 -  **Tạo mới / Cập nhật:** `HTTP 200 OK` hoặc `HTTP 201 Created`  
 -  **Xoá dữ liệu:** `HTTP 200 OK` hoặc `HTTP 204 No Content`  
 -  **Lỗi:** `HTTP 404 Not Found` hoặc `HTTP 500 Internal Server Error` kèm chi tiết lỗi
-
-  
-
