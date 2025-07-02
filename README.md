@@ -71,9 +71,9 @@ Sử dụng Maven để chạy ứng dụng Spring Boot:
 
 ```bash
 mvn spring-boot:run
+```
 ##  Ứng dụng sẽ chạy tại địa chỉ:
   http://localhost:8082
-```
 ##  Sử Dụng API
 
 Bạn có thể sử dụng **Swagger UI** để xem và kiểm thử các API trực tiếp trên trình duyệt.
