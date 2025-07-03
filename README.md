@@ -24,11 +24,17 @@ Một ứng dụng Spring Boot toàn diện giúp quản lý thu nhập, chi ti�
 
 - **Ngôn ngữ:** Java 21  
 - **Framework:** Spring Boot 3.4.4  
-- **ORM:** Spring Data JPA  
+- **ORM:** Spring Data JPA
+- **Spring Security** để bảo vệ các API và quản lý xác thực người dùng  
 - **Cơ sở dữ liệu:** MySQL  
 - **Công cụ build:** Maven  
 - **Kiểu API:** RESTful APIs  
 - **Tài liệu API:** Swagger UI (tự động sinh tài liệu API)
+- **kiểm thử API:** Postman
+- **Đóng gói ứng dụng:** Docker
+- **CI/CD**: GitHub Actions
+- **Quản lý dự án**: Jira
+- **Thiết kế UI/UX**: Figma
 
 ## 📄 Tài Liệu API
 
