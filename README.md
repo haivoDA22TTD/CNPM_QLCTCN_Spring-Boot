@@ -23,7 +23,7 @@ Một ứng dụng Spring Boot toàn diện giúp quản lý thu nhập, chi ti�
 ## 🛠 Công Nghệ Sử Dụng (Tech Stack)
 
 - **Ngôn ngữ:** Java 21  
-- **Framework:** Spring Boot 3.4.5  
+- **Framework:** Spring Boot 3.4.4  
 - **ORM:** Spring Data JPA  
 - **Cơ sở dữ liệu:** MySQL  
 - **Công cụ build:** Maven  
