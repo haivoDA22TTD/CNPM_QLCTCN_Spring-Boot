@@ -2,7 +2,7 @@
 | Sinh viên thực hiện    | MSSV     | Lớp       | 
 |------------------------|----------|-----------|
 | Võ Chí Hải             |110122068 | DA22TTD   | 
-| Nguyễn Đỗ Thành Lộc    |110122015 | DA22TTD   |   
+| Nguyễn Đỗ Thành Lộc    |110122105 | DA22TTD   |   
 | Hoàng Tuấn Kiệt        |110122099 | DA22TTD   |
 
 **Giáo viên hướng dẫn:** TS. Nguyễn Bảo Ân
