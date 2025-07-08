@@ -3,10 +3,10 @@ name: Run SonarCloud analysis
 on:
   push:
     branches:
-      - quality/sonar-analysis
+      - branch-sonar-analysis
   pull_request:
     branches:
-      - quality/sonar-analysis
+      - branch-sonar-analysis
 
 jobs:
   build:
@@ -89,4 +89,4 @@ jobs:
             -Dsonar.organization=haivoda22ttd \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.branch.name=quality/sonar-analysis
+            -Dsonar.branch.name=branch-sonar-analysis
