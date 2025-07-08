@@ -32,8 +32,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: List pom.xml files
-        run: ls -l src/quan_ly__chi_tieu_ca_nhan/pom.xml || echo "pom.xml not found"
+      - name: List project directory (debug)
+        run: |
+          echo "=== Project directory structure ==="
+          ls -la
+          echo "=== src/quan_ly_chi_tieu_ca_nhan ==="
+          ls -la src/quan_ly_chi_tieu_ca_nhan || echo "Folder not found"
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -64,37 +68,23 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build and Test with Maven
-        run: mvn -f src/quan_ly__chi_tieu_ca_nhan/pom.xml clean verify
-
-      - name: Show test logs on failure
-        if: failure()
         run: |
-          echo "===== Listing surefire reports ====="
-          ls -la src/quan_ly__chi_tieu_ca_nhan/target/surefire-reports || echo "No reports directory found"
-          echo "===== Test log output ====="
-          cat src/quan_ly__chi_tieu_ca_nhan/target/surefire-reports/*.txt || echo "No test logs found."
+          set -eux
+          mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml clean verify
 
-      - name: Check if test reports exist
-        id: check_reports
-        run: |
-          if [ -d "src/quan_ly__chi_tieu_ca_nhan/target/surefire-reports" ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Upload test reports (on failure)
-        if: failure() && steps.check_reports.outputs.exists == 'true'
+      - name: Upload test reports (if exists)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: surefire-reports
-          path: src/quan_ly__chi_tieu_ca_nhan/target/surefire-reports
+          path: src/quan_ly_chi_tieu_ca_nhan/target/surefire-reports
+          if-no-files-found: ignore
 
       - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -f src/quan_ly__chi_tieu_ca_nhan/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          mvn -f src/quan_ly_chi_tieu_ca_nhan/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=haivoDA22TTD_CNPM_QLCTCN_Spring-Boot \
             -Dsonar.organization=haivoda22ttd \
             -Dsonar.host.url=https://sonarcloud.io \
