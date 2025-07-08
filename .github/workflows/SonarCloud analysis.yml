@@ -69,20 +69,14 @@ jobs:
           echo "===== Test log output ====="
           cat jwt/target/surefire-reports/*.txt || echo "No test logs found."
 
-      - name: Upload test reports (on failure)
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: surefire-reports
-          path: jwt/target/surefire-reports
-
-            - name:Run SonarCloud analysis
+            - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn -f jwt/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=haivoDA22TTD_CNPM_QLCTCN_Spring-Boot \
-          -Dsonar.organization=haivoda22ttd \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -Dsonar.branch.name=quality/sonar-analysis
+          run: |
+            mvn -f jwt/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=haivoDA22TTD_CNPM_QLCTCN_Spring-Boot \
+            -Dsonar.organization=haivoda22ttd \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.branch.name=quality/sonar-analysis
+
