@@ -2,8 +2,11 @@ name: Run SonarCloud analysis
 
 on:
   push:
-    branches: [quality/sonar-analysis]
+    branches:
+      - sonaruy
   pull_request:
+    branches:
+      - sonaruy
 
 jobs:
   build:
@@ -48,8 +51,7 @@ jobs:
           done
 
       - name: Verify MySQL connection
-        run: |
-          mysql -h127.0.0.1 -uroot -prootpassword -e "SHOW DATABASES;"
+        run: mysql -h127.0.0.1 -uroot -prootpassword -e "SHOW DATABASES;"
 
       - name: Cache Maven packages
         uses: actions/cache@v4
@@ -69,8 +71,17 @@ jobs:
           echo "===== Test log output ====="
           cat src/quan_ly__chi_tieu_ca_nhan/target/surefire-reports/*.txt || echo "No test logs found."
 
+      - name: Check if test reports exist
+        id: check_reports
+        run: |
+          if [ -d "src/quan_ly__chi_tieu_ca_nhan/target/surefire-reports" ]; then
+            echo "::set-output name=exists::true"
+          else
+            echo "::set-output name=exists::false"
+          fi
+
       - name: Upload test reports (on failure)
-        if: failure()
+        if: failure() && steps.check_reports.outputs.exists == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: surefire-reports
@@ -81,8 +92,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -f src/quan_ly__chi_tieu_ca_nhan/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=haivoDA22TTD_CNPM_QLCTCN_Spring-Boot \
-          -Dsonar.organization=haivoda22ttd \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -Dsonar.branch.name=quality/sonar-analysis
+            -Dsonar.projectKey=haivoDA22TTD_CNPM_QLCTCN_Spring-Boot \
+            -Dsonar.organization=haivoda22ttd \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.branch.name=sonaruy
