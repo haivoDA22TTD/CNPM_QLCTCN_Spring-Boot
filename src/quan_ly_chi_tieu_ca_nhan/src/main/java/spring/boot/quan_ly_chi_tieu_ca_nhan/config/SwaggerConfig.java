@@ -15,13 +15,17 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Ứng dụng Quản lý chi tiêu cá nhân")
-                        .description("API cho hệ thống quản lý chi tiêu cá nhân với Spring Boot")
+                        .title("Ứng dụng Web Quản lý chi tiêu cá nhân")
+                        .description("API cho hệ thống quản lý chi tiêu cá nhân với Spring Boot.\n\n"
+                                + "Thành viên nhóm thực hiện:\n"
+                                + "- Võ Chí Hải\n"
+                                + "- Hoàng Tuấn Kiệt\n"
+                                + "- Nguyễn Đỗ Thành Lộc")
                         .version("1.0.0")
                         .contact(new Contact()
-                                .name("HaivoDA22TTD")
+                                .name("CNPM_QLCTCN_Spring-Boot - Quản lý dự án")
                                 .email("vochihai7@gmail.com")
-                                .url("https://github.com/haivoDA22TTD"))
+                                .url("https://github.com/haivoDA22TTD/CNPM_QLCTCN_Spring-Boot"))
                         .license(new License()
                                 .name("MIT License")
                                 .url("https://opensource.org/licenses/MIT"))
