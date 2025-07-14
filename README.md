@@ -55,8 +55,65 @@ Bạn có thể truy cập giao diện Swagger để kiểm thử và xem chi ti
 | Maven      | Phiên bản 3.x trở lên         |
 | IDE        | IntelliJ IDEA / Eclipse / VS Code |
 
-## 📁 Cấu trúc dự án
-<pre><code> quan_ly_chi_tieu_ca_nhan/ ├── .gitattributes ├── .gitignore ├── .mvn/ │ └── wrapper/ │ └── maven-wrapper.properties ├── .vscode/ │ └── launch.json ├── mvnw ├── mvnw.cmd ├── pom.xml ├── src/ │ ├── main/ │ │ ├── java/ │ │ │ └── spring/boot/quan_ly_chi_tieu_ca_nhan/ │ │ │ ├── QuanLyChiTieuCaNhanApplication.java │ │ │ ├── config/ │ │ │ │ ├── SecurityConfig.java │ │ │ │ ├── SwaggerConfig.java │ │ │ │ ├── UserDetailsImpl.java │ │ │ │ └── WebConfig.java │ │ │ ├── controller/ │ │ │ │ ├── ExpenseController.java │ │ │ │ ├── IncomeController.java │ │ │ │ ├── UserController.java │ │ │ │ └── api/ │ │ │ │ ├── ExpenseApiController.java │ │ │ │ ├── IncomeApiController.java │ │ │ │ └── UserApiController.java │ │ │ ├── model/ │ │ │ │ ├── Expense.java │ │ │ │ ├── Income.java │ │ │ │ └── User.java │ │ │ ├── repository/ │ │ │ │ ├── ExpenseRepository.java │ │ │ │ ├── IncomeRepository.java │ │ │ │ └── UserRepository.java │ │ │ └── service/ │ │ │ ├── ExpenseService.java │ │ │ ├── IncomeService.java │ │ │ ├── UserDetailsServiceImpl.java │ │ │ └── UserService.java │ │ └── resources/ │ │ ├── application.properties │ │ └── templates/ │ │ └── manage/ │ │ ├── expense.html │ │ └── income.html </code></pre>
+## 📁 Cấu trúc Dự Án
+
+Dưới đây là cấu trúc thư mục của dự án `quan_ly_chi_tieu_ca_nhan`, được tổ chức rõ ràng theo các lớp chức năng:
+
+```plaintext
+quan_ly_chi_tieu_ca_nhan/
+├── .gitattributes
+├── .gitignore
+├── .mvn/                            # Cấu hình Maven Wrapper
+│   └── wrapper/
+│       └── maven-wrapper.properties
+├── .vscode/                         # Cấu hình cho VS Code
+│   └── launch.json
+├── mvnw                             # Maven wrapper cho Unix
+├── mvnw.cmd                         # Maven wrapper cho Windows
+├── pom.xml                          # File khai báo dự án Maven
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── spring/boot/quan_ly_chi_tieu_ca_nhan/
+│       │       ├── QuanLyChiTieuCaNhanApplication.java   # Điểm khởi chạy chính
+│       │       ├── config/                               # Cấu hình hệ thống
+│       │       │   ├── SecurityConfig.java               # Cấu hình bảo mật Spring Security
+│       │       │   ├── SwaggerConfig.java                # Cấu hình tài liệu API bằng Swagger
+│       │       │   ├── UserDetailsImpl.java              # Cấu hình chi tiết người dùng
+│       │       │   └── WebConfig.java                    # Cấu hình chung cho Web
+│       │       ├── controller/                           # Các controller xử lý yêu cầu
+│       │       │   ├── ExpenseController.java            # Controller quản lý chi tiêu
+│       │       │   ├── IncomeController.java             # Controller quản lý thu nhập
+│       │       │   ├── UserController.java               # Controller quản lý người dùng
+│       │       │   └── api/                              # Các API controller
+│       │       │       ├── ExpenseApiController.java
+│       │       │       ├── IncomeApiController.java
+│       │       │       └── UserApiController.java
+│       │       ├── model/                                # Các lớp entity (dữ liệu)
+│       │       │   ├── Expense.java
+│       │       │   ├── Income.java
+│       │       │   └── User.java
+│       │       ├── repository/                           # Lớp truy cập dữ liệu (DAO)
+│       │       │   ├── ExpenseRepository.java
+│       │       │   ├── IncomeRepository.java
+│       │       │   └── UserRepository.java
+│       │       └── service/                              # Lớp xử lý nghiệp vụ
+│       │           ├── ExpenseService.java
+│       │           ├── IncomeService.java
+│       │           ├── UserDetailsServiceImpl.java
+│       │           └── UserService.java
+│       └── resources/
+│           ├── application.properties                    # File cấu hình Spring Boot
+│           └── templates/
+│               ├── manage/                               # Giao diện quản lý chi tiêu/thu nhập
+│               │   ├── expense.html
+│               │   ├── income.html
+│               │   └── show.html
+│               └── user/                                 # Giao diện đăng nhập, đăng ký
+│                   ├── home.html
+│                   ├── login.html
+│                   └── register.html
+
 
 ## 🧬 Clone Ứng Dụng & Truy Cập
 
