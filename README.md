@@ -51,7 +51,7 @@ Bạn có thể truy cập giao diện Swagger để kiểm thử và xem chi ti
 
 | Thành phần | Phiên bản yêu cầu            |
 |------------|------------------------------|
-| Java       | Phiên bản 17 trở lên         |
+| Java       | Phiên bản 21        |
 | Maven      | Phiên bản 3.x trở lên         |
 | IDE        | IntelliJ IDEA / Eclipse / VS Code |
 
